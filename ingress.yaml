@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 35m
+  name: argocd
+  namespace: argocd
+spec:
+  rules:
+  - host: argocd.sahir.k8s-trial-working-day.atix-training.de
+    http:
+      paths:
+      - backend:
+          service:
+            name: argocd-server
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - 'argocd.sahir.k8s-trial-working-day.atix-training.de'
+    secretName: tls-secret
